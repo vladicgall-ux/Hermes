@@ -118,6 +118,9 @@ if [ ! -f "$HERMES_DATA/.ru-kit-installed" ]; then
   hermes config set auxiliary.openrouter_model "$AUX_MODEL"
   hermes config set display.language ru
   hermes config set stt.language ru
+  hermes config set stt.local.model small          # base плохо понимает русский
+  hermes config set tts.provider edge              # бесплатный синтез речи
+  hermes config set tts.edge.voice ru-RU-DmitryNeural
   touch "$HERMES_DATA/.ru-kit-installed"
 fi
 
