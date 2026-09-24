@@ -1,0 +1,22 @@
+# Hermes Agent — Telegram-бот на русском.
+# Запускается скриптом ./deploy.sh, вручную трогать не нужно.
+#
+# Все данные бота (ключи, память, навыки, история) лежат в папке
+# HERMES_DATA на сервере (по умолчанию ~/.hermes) и переживают
+# перезапуски и обновления.
+
+services:
+  hermes:
+    image: nousresearch/hermes-agent:latest
+    container_name: hermes
+    restart: unless-stopped
+    command: gateway run
+    volumes:
+      - ${HERMES_DATA:-~/.hermes}:/opt/data
+    environment:
+      - HERMES_LANGUAGE=ru
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
