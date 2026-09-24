@@ -8,8 +8,8 @@
 # Сменить ключи: ./deploy.sh --reconfigure
 set -euo pipefail
 
-MODEL="anthropic/claude-sonnet-5"          # основная модель
-AUX_MODEL="anthropic/claude-haiku-4.5"     # дешёвая модель для служебных задач (заголовки, сжатие истории)
+MODEL="z-ai/glm-5.2:free"                  # основная модель — бесплатная, смените на своё усмотрение через /model
+AUX_MODEL="z-ai/glm-5.2:free"              # модель для служебных задач (заголовки, сжатие истории) — тоже бесплатная
 TIMEZONE_DEFAULT="Europe/Moscow"
 
 SCRIPT="$(readlink -f "$0")"
@@ -116,6 +116,7 @@ if [ ! -f "$HERMES_DATA/.ru-kit-installed" ]; then
   hermes config set model.provider openrouter
   hermes config set model.default "$MODEL"
   hermes config set auxiliary.openrouter_model "$AUX_MODEL"
+  hermes config set auxiliary.free_only true
   hermes config set display.language ru
   hermes config set stt.language ru
   hermes config set stt.local.model small          # base плохо понимает русский
